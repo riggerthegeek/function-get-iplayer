@@ -21,8 +21,6 @@ RUN curl -kLO https://raw.github.com/get-iplayer/get_iplayer/master/get_iplayer 
   && install -m 755 ./get_iplayer /usr/local/bin \
   && get_iplayer --info
 
-WORKDIR /opt/get_iplayer/shield007-atomicparsley-db624c49ba39
-
 # Clean up after ourselves
 RUN apk del curl \
   && rm -Rf /opt/get_iplayer
