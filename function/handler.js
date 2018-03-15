@@ -50,6 +50,7 @@ module.exports = input => Promise
       'get_iplayer',
       '--nocopyright',
       '--subdir',
+      '--force',
       '--whitespace',
       `--output="${config.dataDir}"`,
       `--pid="${pid}"`
