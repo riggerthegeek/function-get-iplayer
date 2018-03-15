@@ -16,10 +16,17 @@ const yml = require('js-yaml');
 
 /* Files */
 
+let dropboxKey;
+try {
+  dropboxKey = fs.readFileSync('/run/secrets/dropboxKey');
+} catch (err) {
+  dropboxKey = process.env.DROPBOX_TOKEN;
+}
+
 const config = {
   dataDir: '/home/node/data',
-  dropboxKey: process.env.DROPBOX_TOKEN,
-  uploadDir: process.env.UPLOAD_DIR
+  dropboxKey,
+  uploadDir: process.env.UPLOAD_DIR || '/iPlayer Uploads'
 };
 
 const dbx = new Dropbox({
