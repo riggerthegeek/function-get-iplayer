@@ -52,8 +52,8 @@ serve:
 	docker run \
 		-v ${PWD}/function:/home/node/function \
 		-v ${PWD}/node_modules:/home/node_modules \
-		-e "CLIENT_ID=${CLIENT_ID}" \
-		-e "CLIENT_SECRET=${CLIENT_SECRET}" \
+		-e "DROPBOX_TOKEN=${DROPBOX_TOKEN}" \
+		-e "UPLOAD_DIR=${UPLOAD_DIR}" \
 		-it --rm \
 		${TAG_NAME}:linux-amd64-latest sh -c \
 		"echo '${INPUT}' | node index.js"
