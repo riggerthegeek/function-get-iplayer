@@ -4,6 +4,33 @@ RUN [ "cross-build-start" ]
 
 LABEL maintainer="Simon Emms <simonemms.com>"
 
+WORKDIR /opt/get_iplayer
+
+ADD bin/AtomicParsley .
+
+# System dependencies
+RUN apk add --no-cache curl libc6-compat
+
+# Get iPlayer dependencies
+RUN apk add --no-cache perl-libwww perl-lwp-protocol-https perl-mojolicious perl-xml-libxml \
+  && apk add --no-cache ffmpeg \
+  && install -m 755 ./AtomicParsley /usr/local/bin
+
+# Install get_iplayer
+RUN curl -kLO https://raw.github.com/get-iplayer/get_iplayer/master/get_iplayer \
+  && install -m 755 ./get_iplayer /usr/local/bin
+
+# Clean up after ourselves (libc6-compat is required by AtomicParsley)
+RUN apk del curl \
+  && rm -Rf /opt/get_iplayer
+
+# Check versions for dependencies
+RUN get_iplayer --info \
+  && ffmpeg -version \
+  && AtomicParsley --version
+
+WORKDIR /home/node
+
 # COPY function node packages and install, adding this as a separate
 # entry allows caching of npm install
 ADD ./function ./function

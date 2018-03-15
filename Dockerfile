@@ -13,17 +13,20 @@ RUN apk add --no-cache curl
 RUN apk add --no-cache perl-libwww perl-lwp-protocol-https perl-mojolicious perl-xml-libxml \
   && apk add --no-cache ffmpeg \
   && curl -kL -o AtomicParsley https://bitbucket.org/shield007/atomicparsley/raw/68337c0c05ec4ba2ad47012303121aaede25e6df/downloads/build_linux_x86_64/AtomicParsley \
-  && install -m 755 ./AtomicParsley /usr/local/bin \
-  && AtomicParsley --version
+  && install -m 755 ./AtomicParsley /usr/local/bin
 
 # Install get_iplayer
 RUN curl -kLO https://raw.github.com/get-iplayer/get_iplayer/master/get_iplayer \
-  && install -m 755 ./get_iplayer /usr/local/bin \
-  && get_iplayer --info
+  && install -m 755 ./get_iplayer /usr/local/bin
 
 # Clean up after ourselves
 RUN apk del curl \
   && rm -Rf /opt/get_iplayer
+
+# Check versions for dependencies
+RUN get_iplayer --info \
+  && ffmpeg -version \
+  && AtomicParsley --version
 
 USER node
 
