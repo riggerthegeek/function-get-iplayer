@@ -1,6 +1,6 @@
 {
   "name": "function-get-iplayer",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "OpenFaaS tasks for using get_iplayer",
   "main": "./function/handler.js",
   "scripts": {
