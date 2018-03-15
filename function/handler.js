@@ -58,6 +58,7 @@ module.exports = input => Promise
       '--nocopyright',
       '--subdir',
       '--force',
+      '--overwrite',
       '--whitespace',
       `--output="${config.dataDir}"`,
       `--pid="${pid}"`
