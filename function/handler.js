@@ -94,7 +94,9 @@ module.exports = input => Promise
               mode: {
                 '.tag': 'overwrite'
               }
-            }));
+            }))
+            /* Delete the file */
+            .then(() => util.promisify(fs.unlink)(filePath));
         });
 
         return Promise.all(tasks);
